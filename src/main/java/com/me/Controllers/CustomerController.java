@@ -1,5 +1,8 @@
 package com.me.Controllers;
 
+import com.me.Models.Customer;
+import com.me.Models.Requests.CreateCustomerRequest;
+import com.me.Services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
