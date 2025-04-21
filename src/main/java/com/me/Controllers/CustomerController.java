@@ -32,7 +32,7 @@ public class CustomerController {
         return customerService.deleteCustomer(email);
     }
 
-    @GetMapping
+    @GetMapping("insight/{email}")
     public String getCustomerInsight(@PathVariable String email){
         return customerService.getInsight(email);
     }
