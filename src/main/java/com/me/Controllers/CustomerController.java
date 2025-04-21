@@ -22,7 +22,7 @@ public class CustomerController {
     @GetMapping("{email}")
     public Customer getCustomer(@PathVariable String email) {return customerService.getCustomer(email);}
 
-    @PostMapping
+    @PostMapping("create")
     public ResponseEntity<String> createCustomer(@RequestBody CreateCustomerRequest request){
         return customerService.createCustomer(request);
     }
