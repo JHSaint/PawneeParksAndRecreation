@@ -20,7 +20,7 @@ public class CustomerController {
     public ArrayList<Customer> getAllCustomers(){return customerService.getAllCustomers();}
 
     @GetMapping("{email}")
-    public Customer getCustomer(@PathVariable String email) {return customerService.getCustomer();}
+    public Customer getCustomer(@PathVariable String email) {return customerService.getCustomer(email);}
 
     @PostMapping
     public ResponseEntity<String> createCustomer(@RequestBody CreateCustomerRequest request){
