@@ -5,6 +5,7 @@ import com.me.Models.Entities.CustomerEntity;
 import com.me.Models.Requests.CreateCustomerRequest;
 import com.me.Repositories.CustomerRepository;
 import com.me.Services.CustomerService;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,11 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -45,6 +48,11 @@ public class CustomerServiceTests {
 
     }
 
+    @AfterEach
+    void tearDown(){
+        reset(customerRepository);
+    }
+
     @Test
     void whenGetAllCustomers_withExistingCustomers_shouldReturnCustomers(){
         ArrayList<CustomerEntity> entities = new ArrayList<>(Arrays.asList(entity));
@@ -57,16 +65,17 @@ public class CustomerServiceTests {
 
     @Test
     void whenCreateCustomer_withValidRequest_shouldReturnCREATED(){
-        when(customerRepository.findByEmail(customer.getEmail())).thenReturn(java.util.Optional.ofNullable(entity));
+        when(customerRepository.findByEmail(customer.getEmail())).thenReturn(Optional.empty());
         ResponseEntity<String> response = customerService.createCustomer(request);
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals("Customer created!", response.getBody());
     }
 
     @Test
     void whenDeleteCustomer_thatExist_shouldReturnOK(){
-        when(customerRepository.findByEmail(customer.getEmail())).thenReturn(java.util.Optional.ofNullable(entity));
+        when(customerRepository.findByEmail(testEmail)).thenReturn(Optional.of(entity));
         ResponseEntity<String> response = customerService.deleteCustomer(testEmail);
         assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Customer deleted!", response.getBody());
     }
 
 
