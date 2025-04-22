@@ -21,6 +21,7 @@ public class CustomerEntity {
 
     @Id
     @GeneratedValue
+    private Long Id;
     private String name;
     private String email;
     private String phoneNumber;
@@ -36,8 +37,10 @@ public class CustomerEntity {
                 this.customerType = CustomerType.COMMUNITY_MEMBER;
                 break;
             case "Vendor":
+                this.customerType = CustomerType.VENDOR;
                 break;
             case "Local Business":
+                this.customerType = CustomerType.LOCAL_BUSINESS;
                 break;
             default:
                 this.customerType = CustomerType.COMMUNITY_MEMBER;
